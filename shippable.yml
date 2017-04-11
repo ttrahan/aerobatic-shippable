@@ -1,0 +1,22 @@
+language: node_js
+
+node_js:
+  - 6.9.4
+
+env:
+  - secure: ecagsVLhy39S6cgZd4zpy6AdG6uaTB3I7sO0Tlo+EJT/lbzm2l83vYXVYo04pn0WtWc/DdRxW31xUtcszrkHxWrTo0jZv4cI4mr1MZfHKovuTnSEMpdIrLuz2PsNqtux01ydW5Ln+xJpP210MDHuqdLYwNepctpB4u2V88shzlxp3/6sm49WdTEk8TSbhekSdPUmjzc1A8jRdoEXORt2UtWxVh1fBpEL9gpsIeYdzZ/FKoccTMYHW6aRgAxh73UHkABD9v7Q8r8hKgxoLEafUy3mVeAcFBRYJhUvZ1QWJr7UF2SD27d/edEr4IPHUmb/5PLzfN6fDzLMfsDP6AkwrjieXbLVU/e3skPTQzlnpdAt4aqVxKszHAMb8pRs+X9NEyEVrs1c4zutzLA74IK8+TbWzTEd/3cPmoJq4Nem9zMKG2RUhDOyi9MOH6hwjW2+5NbSS1joQEZonfZ2kqZbGDnMVIFgD9D8F2YZp8KbMI3sMLVFJGQytSkzmbxwwX4s8FQyKwEenSRktHmsDN+2aUK+zl8tlHToiAbwO6bz2CF/KlpLYyR1Z2RZks6lsq/wQjgH0E+CRHe1vKMJlYhGLflKm6lu4+Qeia458WNRaKogUoyW6ZPnE1gmfSjXqlZtcQXnPXHTzvSUZ+1no/NZgPengtT7YlbPBTD4aZC/tCc= 
+
+build:
+  cache: true
+
+  cache_dir_list:
+    - $SHIPPABLE_BUILD_DIR/node_modules
+    
+  ci:
+    - wget https://github.com/spf13/hugo/releases/download/v0.18/hugo_0.18-64bit.deb
+    - sudo dpkg -i hugo*.deb
+    - git clone https://github.com/beli3ver/hemingway2.git themes/hemingway2
+    - shippable_retry sudo npm install
+
+  on_success:
+    - npm run deploy
